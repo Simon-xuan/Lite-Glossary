@@ -1,0 +1,43 @@
+name: Manual Build and Release
+
+on:
+  workflow_dispatch: # 手动触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create Plugin Zip
+        run: |
+          # 统一打包文件名为 LiteGlossary.zip
+          zip -r LiteGlossary.zip . -x "*.git*" ".github*" ".gitignore" "README.md"
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.0
+          name: "Release v1.0.0 - 初始正式版"
+          body: |
+            ### 📦 V1.0.0 发行版功能
+            - **自定义文章类型**：使用专门的 "词汇表" 自定义文章类型管理术语
+            - **智能匹配**：在内容中自动匹配术语，避开已有的链接和标题标签
+            - **高亮选项**：支持仅高亮文中首次出现的术语
+            - **原生前端**：使用纯 CSS + 原生 JavaScript 实现工具提示，无外部依赖
+            - **批量导入**：支持通过 CSV 文本批量导入术语
+            - **高性能**：使用缓存机制减少数据库查询
+
+            ### 🚀 安装使用
+            1. **下载插件**：在下方 Assets 栏目下载 `LiteGlossary.zip`
+            2. **上传安装**：
+               - 登录 WordPress 后台
+               - 进入 **插件** → **添加新插件** → **上传插件**
+               - 选择 `LiteGlossary.zip` 文件并安装
+            3. **激活插件**：安装完成后，点击 **激活插件**
+          files: LiteGlossary.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
