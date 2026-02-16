@@ -1,0 +1,58 @@
+.lite-glossary-term {
+    position: relative;
+    cursor: help;
+    border-bottom: 1px dashed #999;
+    color: inherit;
+}
+
+.lite-glossary-term:hover {
+    color: #0066cc;
+}
+
+.lite-glossary-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 10px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.4;
+    white-space: normal;
+    z-index: 99999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    margin-bottom: 10px;
+    height: 20px;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-y: auto;
+}
+
+.lite-glossary-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 8px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+.lite-glossary-term:hover .lite-glossary-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .lite-glossary-tooltip {
+        font-size: 13px;
+        padding: 8px 10px;
+        height: 20px;
+    }
+}
