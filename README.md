@@ -49,6 +49,7 @@
 术语1|别名,释义
 术语2,释义
 ...
+```
 <img width="818" height="488" alt="截屏2026-02-16 18 15 12" src="https://github.com/user-attachments/assets/75bce416-6faf-4beb-9023-da7e23bc1186" />
  
 ❓ 常见问题 (FAQ)
