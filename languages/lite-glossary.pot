@@ -1,0 +1,250 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Simonxuan
+# This file is distributed under the same license as the Lite Glossary package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Lite Glossary\n"
+"Report-Msgid-Bugs-To: https://github.com/Simon-xuan/Lite-Glossary/issues\n"
+"POT-Creation-Date: 2026-06-09 20:35+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: includes/admin-page.php:12 includes/admin-page.php:13
+msgid "轻量级词汇表"
+msgstr ""
+
+#: includes/admin-page.php:42 includes/admin-page.php:50
+msgid "安全验证失败"
+msgstr ""
+
+#: includes/admin-page.php:55
+msgid "你没有权限执行此操作"
+msgstr ""
+
+#: includes/admin-page.php:91
+#, php-format
+msgid "成功删除 %d 个术语。"
+msgstr ""
+
+#: includes/admin-page.php:93
+msgid "术语已成功删除。"
+msgstr ""
+
+#: includes/admin-page.php:95
+msgid "请选择要删除的术语。"
+msgstr ""
+
+#: includes/admin-page.php:113
+msgid "轻量级词汇表设置"
+msgstr ""
+
+#: includes/admin-page.php:116
+msgid "设置"
+msgstr ""
+
+#: includes/admin-page.php:117
+msgid "导入"
+msgstr ""
+
+#: includes/admin-page.php:118 includes/admin-page.php:169
+msgid "术语管理"
+msgstr ""
+
+#: includes/admin-page.php:128
+msgid "高亮选项"
+msgstr ""
+
+#: includes/admin-page.php:133
+msgid "仅高亮内容中首次出现的术语"
+msgstr ""
+
+#: includes/admin-page.php:140
+msgid "保存设置"
+msgstr ""
+
+#: includes/admin-page.php:145
+msgid "导入词汇表术语"
+msgstr ""
+
+#: includes/admin-page.php:146
+msgid "在下方粘贴 CSV 文本（格式：术语1｜术语2,解释）。已存在的术语将被更新。"
+msgstr ""
+
+#: includes/admin-page.php:154
+msgid "CSV 文本"
+msgstr ""
+
+#: includes/admin-page.php:158
+msgid "示例：ABC｜张三,张三 - 一班\\nDEF｜李四,李四 - 二班"
+msgstr ""
+
+#: includes/admin-page.php:164
+msgid "导入术语"
+msgstr ""
+
+#: includes/admin-page.php:170
+msgid "以下是所有已添加的词汇表术语，您可以编辑或删除它们。"
+msgstr ""
+
+#: includes/admin-page.php:174
+msgid "新增术语"
+msgstr ""
+
+#: includes/admin-page.php:197
+msgid "批量删除"
+msgstr ""
+
+#: includes/admin-page.php:197
+msgid "确定要删除选中的术语吗？"
+msgstr ""
+
+#: includes/admin-page.php:207
+msgid "术语"
+msgstr ""
+
+#: includes/admin-page.php:208
+msgid "解释"
+msgstr ""
+
+#: includes/admin-page.php:209
+msgid "操作"
+msgstr ""
+
+#: includes/admin-page.php:232
+msgid "编辑"
+msgstr ""
+
+#: includes/admin-page.php:233
+msgid "确定要删除这个术语吗？"
+msgstr ""
+
+#: includes/admin-page.php:233
+msgid "删除"
+msgstr ""
+
+#: includes/admin-page.php:257
+msgid "还没有添加任何词汇表术语。"
+msgstr ""
+
+#: includes/admin-page.php:380
+#, php-format
+msgid "导入完成：%d 个新术语，%d 个更新术语"
+msgstr ""
+
+#: includes/post-type.php:12
+msgctxt "Post Type General Name"
+msgid "词汇表"
+msgstr ""
+
+#: includes/post-type.php:13
+msgctxt "Post Type Singular Name"
+msgid "词汇表术语"
+msgstr ""
+
+#: includes/post-type.php:14
+msgid "词汇表"
+msgstr ""
+
+#: includes/post-type.php:15 includes/post-type.php:42
+msgid "词汇表术语"
+msgstr ""
+
+#: includes/post-type.php:16
+msgid "词汇表归档"
+msgstr ""
+
+#: includes/post-type.php:17
+msgid "词汇表属性"
+msgstr ""
+
+#: includes/post-type.php:18
+msgid "父词汇表术语:"
+msgstr ""
+
+#: includes/post-type.php:19
+msgid "所有词汇表术语"
+msgstr ""
+
+#: includes/post-type.php:20
+msgid "添加新词汇表术语"
+msgstr ""
+
+#: includes/post-type.php:21
+msgid "添加新"
+msgstr ""
+
+#: includes/post-type.php:22
+msgid "新词汇表术语"
+msgstr ""
+
+#: includes/post-type.php:23
+msgid "编辑词汇表术语"
+msgstr ""
+
+#: includes/post-type.php:24
+msgid "更新词汇表术语"
+msgstr ""
+
+#: includes/post-type.php:25 includes/post-type.php:26
+msgid "查看词汇表术语"
+msgstr ""
+
+#: includes/post-type.php:27
+msgid "搜索词汇表术语"
+msgstr ""
+
+#: includes/post-type.php:28
+msgid "未找到"
+msgstr ""
+
+#: includes/post-type.php:29
+msgid "回收站中未找到"
+msgstr ""
+
+#: includes/post-type.php:30
+msgid "特色图片"
+msgstr ""
+
+#: includes/post-type.php:31
+msgid "设置特色图片"
+msgstr ""
+
+#: includes/post-type.php:32
+msgid "移除特色图片"
+msgstr ""
+
+#: includes/post-type.php:33
+msgid "用作特色图片"
+msgstr ""
+
+#: includes/post-type.php:34
+msgid "插入到词汇表术语"
+msgstr ""
+
+#: includes/post-type.php:35
+msgid "上传到此词汇表术语"
+msgstr ""
+
+#: includes/post-type.php:36
+msgid "词汇表术语列表"
+msgstr ""
+
+#: includes/post-type.php:37
+msgid "词汇表术语列表导航"
+msgstr ""
+
+#: includes/post-type.php:38
+msgid "筛选词汇表术语列表"
+msgstr ""
+
+#: includes/post-type.php:43
+msgid "用于显示工具提示的词汇表术语"
+msgstr ""
