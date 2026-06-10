@@ -209,6 +209,10 @@ Lite-Glossary/
 
 ## 🛠 Changelog
 
+### v1.0.2
+
+- Security: the tooltip is now rendered with DOM text nodes + `<br>` elements instead of `innerHTML`, eliminating the XSS sink flagged by code scanning (`js/xss-through-dom`)
+
 ### v1.0.1
 
 - Security hardening: all input unslashed + sanitized, nonces sanitized before verification, capability check added to single-term deletion

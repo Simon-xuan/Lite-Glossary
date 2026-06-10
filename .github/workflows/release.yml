@@ -13,7 +13,7 @@ permissions:
   contents: write
 
 env:
-  DEFAULT_TAG: v1.0.1
+  DEFAULT_TAG: v1.0.2
 
 jobs:
   build:
@@ -58,6 +58,7 @@ jobs:
           body: |
             **🔒 Security hardening**
 
+            * Tooltips are now rendered with DOM text nodes instead of `innerHTML` — removes the DOM XSS sink flagged by code scanning (`js/xss-through-dom`)
             * All user input is now unslashed (`wp_unslash`) and sanitized (`sanitize_text_field` / `sanitize_textarea_field`) before use
             * Nonces are sanitized before verification, with proper `isset` guards
             * Added an explicit capability check (`current_user_can('delete_posts')`) to single-term deletion

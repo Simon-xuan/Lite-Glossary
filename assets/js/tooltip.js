@@ -4,46 +4,42 @@
  */
 
 /**
- * 格式化文本
+ * 把文本切分成多行（决定在哪里换行）
  * @param {string} text - 需要格式化的文本
- * @returns {string} 格式化后的文本
+ * @returns {string[]} 各行文本组成的数组
  */
-function formatText(text) {
+function formatTextLines(text) {
+    var lines = [];
     // 检查是否有标点符号
     var hasPunctuation = /[，。！？；：,.;:!?]/.test(text);
-    var result = '';
-    
+
     if (hasPunctuation) {
         // 有标点符号，在每个标点符号后换行，但如果不超过5个字符不换行
         var lastIndex = 0;
         for (var i = 0; i < text.length; i++) {
-            var char = text[i];
-            if (/[，。！？；：,.;:!?]/.test(char)) {
+            if (/[，。！？；：,.;:!?]/.test(text[i])) {
                 var segment = text.substring(lastIndex, i + 1);
                 if (segment.length > 5) {
-                    result += segment + '<br>';
+                    lines.push(segment);
                     lastIndex = i + 1;
                 }
             }
         }
         // 添加剩余部分
         if (lastIndex < text.length) {
-            result += text.substring(lastIndex);
+            lines.push(text.substring(lastIndex));
+        }
+    } else if (text.length > 7) {
+        // 没有标点符号且字数超过7，每5个字符换行
+        for (var j = 0; j < text.length; j += 5) {
+            lines.push(text.substring(j, j + 5));
         }
     } else {
-        // 没有标点符号，检查字数
-        if (text.length > 7) {
-            // 字数超过7，每5个字符换行
-            for (var i = 0; i < text.length; i += 5) {
-                result += text.substring(i, i + 5) + '<br>';
-            }
-        } else {
-            // 字数不超过7，不换行
-            result = text;
-        }
+        // 字数不超过7，不换行
+        lines.push(text);
     }
-    
-    return result;
+
+    return lines;
 }
 
 /**
@@ -73,9 +69,15 @@ document.addEventListener('DOMContentLoaded', function() {
             var tooltip = document.createElement('span');
             tooltip.className = 'lite-glossary-tooltip';
             
-            // 格式化文本，每5个字符插入一个换行标签
-            tooltip.innerHTML = formatText(tooltipContent);
-            
+            // 用文本节点 + <br> 元素构建内容，避免 innerHTML 带来的 XSS 风险
+            var lines = formatTextLines(tooltipContent);
+            lines.forEach(function (line, index) {
+                if (index > 0) {
+                    tooltip.appendChild(document.createElement('br'));
+                }
+                tooltip.appendChild(document.createTextNode(line));
+            });
+
             // 将工具提示作为术语的子元素，使其相对术语（position:relative）定位在正上方
             term.appendChild(tooltip);
             

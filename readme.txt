@@ -4,7 +4,7 @@ Tags: glossary, tooltip, terms, dictionary, definitions
 Requires at least: 5.0
 Tested up to: 7.0
 Requires PHP: 7.0
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -68,6 +68,9 @@ This usually means two copies of the plugin are installed (for example an old co
 
 == Changelog ==
 
+= 1.0.2 =
+* Security: the tooltip is now built with DOM text nodes instead of innerHTML, removing the XSS sink flagged by code scanning (js/xss-through-dom).
+
 = 1.0.1 =
 * Security: all input is unslashed and sanitized; nonces are sanitized before verification; an explicit capability check was added to single-term deletion; CSV import sanitizes each field.
 * Fix: the "Only highlight the first occurrence" setting is now saved correctly.
@@ -79,6 +82,9 @@ This usually means two copies of the plugin are installed (for example an old co
 * Initial release: core term-matching engine, CSV bulk import with Transient caching, Vanilla JS tooltips with zero front-end dependencies.
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+Security fix: removes a DOM XSS sink in the tooltip script (flagged by code scanning). Recommended for all users.
 
 = 1.0.1 =
 Security hardening, a settings-save fix, real caching, and WordPress.org Plugin Check compliance. Recommended for all users.

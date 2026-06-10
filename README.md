@@ -209,6 +209,10 @@ Lite-Glossary/
 
 ## 🛠 版本历史
 
+### v1.0.2
+
+- 安全：工具提示改用 DOM 文本节点 + `<br>` 元素渲染，移除 `innerHTML`，消除代码扫描报告的 XSS 隐患（`js/xss-through-dom`）
+
 ### v1.0.1
 
 - 安全加固：所有输入统一 `wp_unslash` + `sanitize_*`，nonce 校验前净化，单条删除补权限检查
