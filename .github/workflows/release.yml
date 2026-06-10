@@ -66,6 +66,10 @@ jobs:
 
             * The "Only highlight the first occurrence" setting was never saved — it now persists correctly
 
+            **⚡ Performance**
+
+            * Removed leftover migration code that cleared the term cache on every request — Transient caching now actually takes effect
+
             **📦 Packaging**
 
             * The release zip now ships a proper top-level `lite-glossary/` folder and excludes development assets (screenshots, etc.)
@@ -84,6 +88,9 @@ jobs:
 
             ### 🐛 问题修复
             - 「仅高亮内容中首次出现的术语」设置此前从不保存，现已正确持久化
+
+            ### ⚡ 性能
+            - 移除每次请求都清空术语缓存的遗留迁移代码，Transient 缓存现已真正生效
 
             ### 📦 打包改进
             - 发布 zip 现采用标准顶层目录 `lite-glossary/`，并排除文档/截图等开发资源
