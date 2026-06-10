@@ -36,9 +36,6 @@ require_once LITE_GLOSSARY_PLUGIN_DIR . 'includes/post-type.php';
 require_once LITE_GLOSSARY_PLUGIN_DIR . 'includes/content-filter.php';
 require_once LITE_GLOSSARY_PLUGIN_DIR . 'includes/admin-page.php';
 
-// 清除旧缓存，确保使用新的数据结构
-delete_transient( 'lite_glossary_terms' );
-
 // 加载资源
 function lite_glossary_enqueue_assets() {
     // 仅在单个文章/页面加载
