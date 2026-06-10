@@ -47,7 +47,7 @@ Zero dependencies · First-class CJK support · Smart matching · High-performan
 | ⚡ **Native front-end** | Pure CSS + Vanilla JavaScript, zero dependencies (no jQuery), no extra libraries loaded |
 | 📥 **Bulk import** | Import large term lists at once from plain CSV text |
 | 🚀 **High performance** | Built-in Transient caching dramatically reduces database queries |
-| 🀄 **First-class CJK support** | Regex matching and storage are optimized for Chinese and other multibyte text — no garbled output, no false matches |
+| 🀄 **First-class English and Chinese support** | Regex matching and storage are optimized for Chinese and other multibyte text — no garbled output, no false matches |
 | 🔗 **Familiar structure** | Uses a data structure similar to CM Tooltip, so it *may* be compatible (untested — verify on your own) |
 
 ---
@@ -224,5 +224,7 @@ Released under the [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.txt) license.
 <div align="center">
 
 If this project helps you, please consider leaving a ⭐ Star!
+
+**This project was built with AI assistance.This project was built with AI assistance.**
 
 </div>
