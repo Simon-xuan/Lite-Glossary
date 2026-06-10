@@ -214,6 +214,7 @@ Lite-Glossary/
 - Security hardening: all input unslashed + sanitized, nonces sanitized before verification, capability check added to single-term deletion
 - Fix: the "Only highlight the first occurrence" setting now saves correctly
 - Performance: removed leftover migration code that cleared the cache on every request — Transient caching now actually takes effect
+- Naming: the name shown in the Plugins list is now "Lite Glossary"
 - Packaging: release zip uses a proper top-level folder and excludes doc assets
 
 ### v1.0.0

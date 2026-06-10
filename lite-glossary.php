@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: 轻量级词汇表
+ * Plugin Name: Lite Glossary
  * Plugin URI: https://github.com/Simon-xuan/Lite-Glossary
  * Description: 一个轻量级的 WordPress 词汇表插件，为内容中的术语添加工具提示。
  * Version: 1.0.1
