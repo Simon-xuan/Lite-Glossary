@@ -44,6 +44,7 @@ jobs:
             --exclude='docs' \
             --exclude='build' \
             --exclude='*.zip' \
+            --exclude='*.md' \
             ./ build/lite-glossary/
           (cd build && zip -rq ../LiteGlossary.zip lite-glossary)
           echo "打包内容："
@@ -74,9 +75,13 @@ jobs:
 
             * The name shown in the Plugins list is now "Lite Glossary"
 
+            **✅ Compliance**
+
+            * Added a `sanitize_callback` to `register_setting`, and the production zip excludes extra Markdown files — passes the WordPress.org Plugin Check
+
             **📦 Packaging**
 
-            * The release zip now ships a proper top-level `lite-glossary/` folder and excludes development assets (screenshots, etc.)
+            * The release zip now ships a proper top-level `lite-glossary/` folder and excludes development assets (screenshots, Markdown, etc.)
 
             **🚀 Installation**
 
@@ -99,8 +104,11 @@ jobs:
             ### 🏷️ 命名
             - 插件列表显示名改为英文「Lite Glossary」
 
+            ### ✅ 合规
+            - `register_setting` 增加 `sanitize_callback`，生产包排除多余 Markdown 文件 —— 通过 WordPress.org 插件检查
+
             ### 📦 打包改进
-            - 发布 zip 现采用标准顶层目录 `lite-glossary/`，并排除文档/截图等开发资源
+            - 发布 zip 现采用标准顶层目录 `lite-glossary/`，并排除文档/截图/Markdown 等开发资源
 
             ### 🚀 安装使用
             1. 在下方 Assets 栏目下载 `LiteGlossary.zip`

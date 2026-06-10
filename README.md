@@ -215,6 +215,7 @@ Lite-Glossary/
 - 修复：「仅高亮首次出现」设置现在能正确保存
 - 性能：移除每次请求都清空缓存的遗留迁移代码，Transient 缓存现已真正生效
 - 命名：插件列表显示名改为英文「Lite Glossary」
+- 合规：`register_setting` 增加 `sanitize_callback`；打包排除多余 Markdown 文件（通过 WordPress.org 插件检查）
 - 打包改进：发布 zip 使用标准顶层目录、排除文档资源
 
 ### v1.0.0

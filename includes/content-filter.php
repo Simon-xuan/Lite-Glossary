@@ -194,6 +194,21 @@ function lite_glossary_get_text_nodes( $node, &$text_nodes = array() ) {
  */
 function lite_glossary_register_settings() {
     add_option( 'lite_glossary_first_occurrence_only', false );
-    register_setting( 'lite_glossary_settings', 'lite_glossary_first_occurrence_only' );
+    register_setting(
+        'lite_glossary_settings',
+        'lite_glossary_first_occurrence_only',
+        array(
+            'type'              => 'boolean',
+            'sanitize_callback' => 'lite_glossary_sanitize_first_occurrence',
+            'default'           => false,
+        )
+    );
 }
 add_action( 'admin_init', 'lite_glossary_register_settings' );
+
+/**
+ * 净化「仅高亮首次出现」设置（复选框，统一返回 1 或 0）
+ */
+function lite_glossary_sanitize_first_occurrence( $value ) {
+    return ! empty( $value ) ? 1 : 0;
+}
