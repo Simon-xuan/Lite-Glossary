@@ -1,5 +1,5 @@
 === Lite Glossary ===
-Contributors: simonxuan
+Contributors: Simonxuan
 Tags: glossary, tooltip, terms, dictionary, definitions
 Requires at least: 5.0
 Tested up to: 7.0
