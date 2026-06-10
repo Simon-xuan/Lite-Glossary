@@ -25,9 +25,14 @@ add_action( 'admin_menu', 'lite_glossary_add_admin_menu' );
  */
 function lite_glossary_admin_page() {
     // 处理单个删除操作 - 必须在任何输出之前执行
-    if ( isset( $_GET['action'] ) && $_GET['action'] == 'lite_glossary_delete' && isset( $_GET['term_id'] ) ) {
-        // 验证nonce
-        if ( wp_verify_nonce( $_GET['_wpnonce'], 'lite_glossary_delete' ) ) {
+    if ( isset( $_GET['action'] ) && $_GET['action'] === 'lite_glossary_delete' && isset( $_GET['term_id'] ) ) {
+        // 验证 nonce（先 unslash + sanitize，避免直接信任输入）
+        $nonce = isset( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
+        if ( wp_verify_nonce( $nonce, 'lite_glossary_delete' ) ) {
+            // 权限检查（纵深防御，与批量删除一致）
+            if ( ! current_user_can( 'delete_posts' ) ) {
+                wp_die( __( '你没有权限执行此操作', 'lite-glossary' ) );
+            }
             $term_id = intval( $_GET['term_id'] );
             if ( $term_id > 0 && wp_delete_post( $term_id, true ) ) {
                 delete_transient( 'lite_glossary_terms' );
@@ -46,7 +51,7 @@ function lite_glossary_admin_page() {
     // 处理批量删除操作 - 必须在任何输出之前执行
     if ( isset( $_POST['lite_glossary_bulk_delete'] ) ) {
         // 1. 安全检查：验证 Nonce 随机数，防止 CSRF 攻击
-        if ( ! isset( $_POST['lite_glossary_nonce'] ) || ! wp_verify_nonce( $_POST['lite_glossary_nonce'], 'lite_glossary_bulk_delete' ) ) {
+        if ( ! isset( $_POST['lite_glossary_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['lite_glossary_nonce'] ) ), 'lite_glossary_bulk_delete' ) ) {
             wp_die( __( '安全验证失败', 'lite-glossary' ) );
         }
 
@@ -57,8 +62,8 @@ function lite_glossary_admin_page() {
 
         // 3. 获取 ID 并执行删除
         if ( ! empty( $_POST['term_ids'] ) && is_array( $_POST['term_ids'] ) ) {
-            // 使用 array_map 处理 ID，确保数据全是数字
-            $term_ids = array_map( 'intval', $_POST['term_ids'] );
+            // 先 unslash 再用 array_map(intval) 处理 ID，确保数据全是数字
+            $term_ids = array_map( 'intval', (array) wp_unslash( $_POST['term_ids'] ) );
 
             $deleted = 0;
             foreach ( $term_ids as $term_id ) {
@@ -97,14 +102,17 @@ function lite_glossary_admin_page() {
     
     // 处理 CSV 导入
     if ( isset( $_POST['lite_glossary_import'] ) && isset( $_POST['lite_glossary_csv'] ) ) {
-        if ( wp_verify_nonce( $_POST['lite_glossary_nonce'], 'lite_glossary_import' ) ) {
+        if ( isset( $_POST['lite_glossary_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['lite_glossary_nonce'] ) ), 'lite_glossary_import' ) ) {
             lite_glossary_handle_csv_import();
         }
     }
-    
-    // 如果设置更新，清除缓存
+
+    // 保存设置并清除缓存
     if ( isset( $_POST['lite_glossary_settings'] ) ) {
-        if ( wp_verify_nonce( $_POST['lite_glossary_nonce'], 'lite_glossary_settings' ) ) {
+        if ( isset( $_POST['lite_glossary_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['lite_glossary_nonce'] ) ), 'lite_glossary_settings' ) ) {
+            // 复选框未勾选时 $_POST 中不存在该字段，按"关闭"处理
+            $first_only = ! empty( $_POST['lite_glossary_first_occurrence_only'] ) ? 1 : 0;
+            update_option( 'lite_glossary_first_occurrence_only', $first_only );
             delete_transient( 'lite_glossary_terms' );
         }
     }
@@ -307,7 +315,7 @@ function lite_glossary_handle_csv_import() {
         return;
     }
     
-    $csv_text = trim( $_POST['lite_glossary_csv'] );
+    $csv_text = trim( sanitize_textarea_field( wp_unslash( $_POST['lite_glossary_csv'] ) ) );
     
     if ( empty( $csv_text ) ) {
         return;
@@ -333,8 +341,8 @@ function lite_glossary_handle_csv_import() {
             continue;
         }
         
-        $abbreviation = trim( $parts[0] );
-        $full_name = trim( $parts[1] );
+        $abbreviation = sanitize_text_field( trim( $parts[0] ) );
+        $full_name = sanitize_text_field( trim( $parts[1] ) );
         
         if ( empty( $abbreviation ) || empty( $full_name ) ) {
             continue;
