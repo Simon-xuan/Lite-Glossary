@@ -3,7 +3,7 @@
  * Plugin Name: 轻量级词汇表
  * Plugin URI: https://github.com/Simon-xuan/Lite-Glossary
  * Description: 一个轻量级的 WordPress 词汇表插件，为内容中的术语添加工具提示。
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Simonxuan
  * Author URI: https://github.com/Simon-xuan
  * License: GPL-2.0+
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // 定义插件常量
-define( 'LITE_GLOSSARY_VERSION', '1.0.0' );
+define( 'LITE_GLOSSARY_VERSION', '1.0.1' );
 define( 'LITE_GLOSSARY_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'LITE_GLOSSARY_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 

@@ -1,43 +1,78 @@
-name: Manual Build and Release
+name: Build and Release
 
+# 触发方式：
+#   1) 推送以 v 开头的标签（如 v1.0.1）会自动用该标签号发布
+#   2) 也可在 Actions 页面手动触发（默认按下方 DEFAULT_TAG 发布）
 on:
-  workflow_dispatch: # 手动触发
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  DEFAULT_TAG: v1.0.1
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Create Plugin Zip
+      - name: Resolve release tag
+        id: meta
         run: |
-          # 统一打包文件名为 LiteGlossary.zip
-          zip -r LiteGlossary.zip . -x "*.git*" ".github*" ".gitignore" "README.md"
+          if [ "${{ github.ref_type }}" = "tag" ]; then
+            echo "tag=${{ github.ref_name }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=${DEFAULT_TAG}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build plugin zip
+        run: |
+          # 打包成带顶层目录 lite-glossary/ 的标准 WordPress 安装包，
+          # 排除开发/文档/版本控制文件（尤其是体积较大的 docs/ 截图）。
+          mkdir -p build/lite-glossary
+          rsync -a \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='.gitignore' \
+            --exclude='.DS_Store' \
+            --exclude='docs' \
+            --exclude='build' \
+            --exclude='*.zip' \
+            ./ build/lite-glossary/
+          (cd build && zip -rq ../LiteGlossary.zip lite-glossary)
+          echo "打包内容："
+          unzip -l LiteGlossary.zip
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.0
-          name: "Release v1.0.0 - 初始正式版"
+          tag_name: ${{ steps.meta.outputs.tag }}
+          name: Lite Glossary ${{ steps.meta.outputs.tag }}
           body: |
-            ### 📦 V1.0.0 发行版功能
-            - **自定义文章类型**：使用专门的 "词汇表" 自定义文章类型管理术语
-            - **智能匹配**：在内容中自动匹配术语，避开已有的链接和标题标签
-            - **高亮选项**：支持仅高亮文中首次出现的术语
-            - **原生前端**：使用纯 CSS + 原生 JavaScript 实现工具提示，无外部依赖
-            - **批量导入**：支持通过 CSV 文本批量导入术语
-            - **高性能**：使用缓存机制减少数据库查询
+            ## Lite Glossary ${{ steps.meta.outputs.tag }}
 
-            ### 🚀 安装使用
-            1. **下载插件**：在下方 Assets 栏目下载 `LiteGlossary.zip`
-            2. **上传安装**：
-               - 登录 WordPress 后台
-               - 进入 **插件** → **添加新插件** → **上传插件**
-               - 选择 `LiteGlossary.zip` 文件并安装
-            3. **激活插件**：安装完成后，点击 **激活插件**
+            ### 🔒 Security hardening
+            - All user input is now unslashed (`wp_unslash`) and sanitized (`sanitize_text_field` / `sanitize_textarea_field`) before use
+            - Nonces are sanitized before verification, with proper `isset` guards
+            - Added an explicit capability check (`current_user_can('delete_posts')`) to single-term deletion
+            - CSV import sanitizes each field, stripping any HTML/script on the way in
+
+            ### 🐛 Bug fixes
+            - The "Only highlight the first occurrence" setting was never saved — it now persists correctly
+
+            ### 📦 Packaging
+            - The release zip now ships a proper top-level `lite-glossary/` folder and excludes development assets (screenshots, etc.)
+
+            ### 🚀 Installation
+            1. Download `LiteGlossary.zip` from the Assets below.
+            2. In your WordPress dashboard go to **Plugins → Add New Plugin → Upload Plugin**, choose the zip, and install.
+            3. Click **Activate**.
           files: LiteGlossary.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
