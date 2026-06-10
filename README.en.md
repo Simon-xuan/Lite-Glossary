@@ -165,6 +165,14 @@ Make sure the separator comma is a **half-width** `,` and that every line follow
 No. The plugin parses content with `DOMDocument` and automatically skips `<a>` links and `<h1>`–`<h6>` headings, processing only plain text.
 </details>
 
+<details>
+<summary><strong>Activation fails with "The plugin could not be activated because it triggered a fatal error" — what now?</strong></summary>
+
+This usually means **two copies of the plugin are installed** — e.g. an old copy left behind in another folder under `wp-content/plugins/` when you uploaded a new version. The two copies declare the same functions, so WordPress hits a `Cannot redeclare function ...` fatal error on activation.
+
+**Fix**: In Dashboard → Plugins, keep only **one** copy of "Lite Glossary". If unsure, use FTP / a file manager to check `wp-content/plugins/` for duplicate folders (e.g. `lite-glossary` alongside `Lite-Glossary` or `lite-glossary-old`), delete the extras, then activate.
+</details>
+
 ---
 
 ## 🌍 Internationalization (i18n)

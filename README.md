@@ -165,6 +165,14 @@ TV｜Television,电视
 不会。插件基于 `DOMDocument` 解析正文，自动跳过 `<a>` 链接与 `<h1>`–`<h6>` 标题，只处理纯文本。
 </details>
 
+<details>
+<summary><strong>启用时提示「插件引起致命错误，无法启用」怎么办？</strong></summary>
+
+这通常是因为站点里**装了两份本插件**——例如上传新版时旧副本没删干净，残留在 `wp-content/plugins/` 下的另一个文件夹里。两份代码函数同名，WordPress 启用时会触发 `Cannot redeclare function ...` 致命错误。
+
+**解决办法**：后台 → 插件，确认只保留**一份**「轻量级词汇表」；若不放心，用 FTP / 文件管理器检查 `wp-content/plugins/` 下是否有重复的插件文件夹（如 `lite-glossary` 与 `Lite-Glossary`、`lite-glossary-old` 等），删掉多余的再启用即可。
+</details>
+
 ---
 
 ## 🌍 多语言 / i18n
