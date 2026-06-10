@@ -185,7 +185,7 @@ The plugin is fully internationalized, and **the interface language automaticall
 | English | ✅ Translation provided (`languages/lite-glossary-en_US.mo`) |
 
 - When the site language is **English**, the UI shows English; for **Simplified Chinese** or anything else, it shows Chinese.
-- Want to add another language? Use `languages/lite-glossary.pot` as the template, save your translation as `lite-glossary-{locale}.po` (e.g. `lite-glossary-ja.po`), compile it to `.mo` with `msgfmt`, and drop it into `languages/`.
+- Want to add another language? Use `languages/lite-glossary.pot` as the template, save your translation as `lite-glossary-{locale}.po` (replace `{locale}` with the target language's WordPress locale code), compile it to `.mo` with `msgfmt`, drop it into `languages/` — or submit a PR.
 
 ---
 
@@ -225,6 +225,6 @@ Released under the [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.txt) license.
 
 If this project helps you, please consider leaving a ⭐ Star!
 
-**This project was built with AI assistance.This project was built with AI assistance.**
+**This project was built with AI assistance.**
 
 </div>
