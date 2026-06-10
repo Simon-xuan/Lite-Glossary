@@ -55,24 +55,43 @@ jobs:
           tag_name: ${{ steps.meta.outputs.tag }}
           name: Lite Glossary ${{ steps.meta.outputs.tag }}
           body: |
-            ## Lite Glossary ${{ steps.meta.outputs.tag }}
+            **🔒 Security hardening**
 
-            ### 🔒 Security hardening
-            - All user input is now unslashed (`wp_unslash`) and sanitized (`sanitize_text_field` / `sanitize_textarea_field`) before use
-            - Nonces are sanitized before verification, with proper `isset` guards
-            - Added an explicit capability check (`current_user_can('delete_posts')`) to single-term deletion
-            - CSV import sanitizes each field, stripping any HTML/script on the way in
+            * All user input is now unslashed (`wp_unslash`) and sanitized (`sanitize_text_field` / `sanitize_textarea_field`) before use
+            * Nonces are sanitized before verification, with proper `isset` guards
+            * Added an explicit capability check (`current_user_can('delete_posts')`) to single-term deletion
+            * CSV import sanitizes each field, stripping any HTML/script on the way in
 
-            ### 🐛 Bug fixes
-            - The "Only highlight the first occurrence" setting was never saved — it now persists correctly
+            **🐛 Bug fixes**
 
-            ### 📦 Packaging
-            - The release zip now ships a proper top-level `lite-glossary/` folder and excludes development assets (screenshots, etc.)
+            * The "Only highlight the first occurrence" setting was never saved — it now persists correctly
 
-            ### 🚀 Installation
-            1. Download `LiteGlossary.zip` from the Assets below.
-            2. In your WordPress dashboard go to **Plugins → Add New Plugin → Upload Plugin**, choose the zip, and install.
-            3. Click **Activate**.
+            **📦 Packaging**
+
+            * The release zip now ships a proper top-level `lite-glossary/` folder and excludes development assets (screenshots, etc.)
+
+            **🚀 Installation**
+
+            1. Download `LiteGlossary.zip` from the Assets section below
+            2. Go to **Plugins → Add New Plugin → Upload Plugin**, select the zip, and install
+            3. Click **Activate Plugin**
+
+            ### 🔒 安全加固
+            - 所有用户输入统一 `wp_unslash` + `sanitize_text_field` / `sanitize_textarea_field` 后再使用
+            - nonce 校验前先净化，并补 `isset` 判断
+            - 单条删除新增权限检查 `current_user_can('delete_posts')`
+            - CSV 导入逐字段净化，恶意 HTML/脚本入库即被剥离
+
+            ### 🐛 问题修复
+            - 「仅高亮内容中首次出现的术语」设置此前从不保存，现已正确持久化
+
+            ### 📦 打包改进
+            - 发布 zip 现采用标准顶层目录 `lite-glossary/`，并排除文档/截图等开发资源
+
+            ### 🚀 安装使用
+            1. 在下方 Assets 栏目下载 `LiteGlossary.zip`
+            2. 进入 **插件 → 添加新插件 → 上传插件**，选择 zip 并安装
+            3. 点击 **激活插件**
           files: LiteGlossary.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
