@@ -185,7 +185,7 @@ TV｜Television,电视
 | English | ✅ 已提供翻译(`languages/lite-glossary-en_US.mo`) |
 
 - 站点语言为 **English** 时自动显示英文,为**简体中文**或其他时显示中文。
-- 想新增其他语言?用 `languages/lite-glossary.pot` 作为模板,翻译后命名为 `lite-glossary-{locale}.po`(如 `lite-glossary-ja.po`),用 `msgfmt` 编译成 `.mo` 放进 `languages/` 即可。
+- 想新增其他语言? 用 `languages/lite-glossary.pot` 作为模板,翻译后命名为 `lite-glossary-{locale}.po`(`{locale}` 替换为目标语言的 WordPress 语言代码),用 `msgfmt` 编译成 `.mo` 放进 `languages/` 即可。或者提交PR。
 
 ---
 
