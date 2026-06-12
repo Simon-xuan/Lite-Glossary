@@ -4,6 +4,8 @@
  * Plugin URI: https://github.com/Simon-xuan/Wordnest
  * Description: 一个轻量级的 WordPress 词汇表插件，为内容中的术语添加工具提示。
  * Version: 1.1.0
+ * Requires at least: 5.0
+ * Requires PHP: 8.0
  * Author: Simonxuan
  * Author URI: https://github.com/Simon-xuan
  * License: GPL-2.0+

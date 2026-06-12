@@ -1,14 +1,14 @@
 === Wordnest ===
-Contributors: Simonxuan
+Contributors: simonxuan
 Tags: glossary, tooltip, terms, dictionary, definitions
 Requires at least: 5.0
 Tested up to: 7.0
-Requires PHP: 7.0
+Requires PHP: 8.0
 Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A lightweight WordPress glossary plugin that shows a tooltip definition when readers hover over a term. Zero dependencies, first-class CJK support.
+Lightweight glossary plugin that shows a tooltip when readers hover a term. Zero dependencies, first-class CJK support.
 
 == Description ==
 
