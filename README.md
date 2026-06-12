@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📖 Lite-Glossary · 轻量级词汇表
+# 📖 Wordnest · 轻量级词汇表
 
 **为 WordPress 文章自动添加术语工具提示的极简插件**
 
@@ -10,7 +10,7 @@
 
 <br>
 
-[![Version](https://img.shields.io/badge/version-1.0.0-2ea44f?style=for-the-badge)](https://github.com/Simon-xuan/Lite-Glossary/releases)
+[![Version](https://img.shields.io/badge/version-1.1.0-2ea44f?style=for-the-badge)](https://github.com/Simon-xuan/Wordnest/releases)
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-21759b?style=for-the-badge&logo=wordpress&logoColor=white)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.0%2B-777bb4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/)
 [![License](https://img.shields.io/badge/License-GPL--2.0%2B-blue?style=for-the-badge)](http://www.gnu.org/licenses/gpl-2.0.txt)
@@ -26,7 +26,7 @@
 
 ---
 
-> **Lite-Glossary** 是一款专为 WordPress 打造的极简术语工具提示插件。它用原生技术栈（纯 CSS + Vanilla JS）替代臃肿的同类插件，让你在文章中划过术语即可看到释义——快、轻、无依赖。
+> **Wordnest** 是一款专为 WordPress 打造的极简术语工具提示插件。它用原生技术栈（纯 CSS + Vanilla JS）替代臃肿的同类插件，让你在文章中划过术语即可看到释义——快、轻、无依赖。
 
 <div align="center">
 
@@ -52,7 +52,7 @@
 
 ---
 
-## 🤔 为什么选择 Lite-Glossary
+## 🤔 为什么选择 Wordnest
 
 - **轻** — 整个插件仅几个 PHP 文件 + 一份 CSS/JS，安装即用。
 - **快** — 前端无任何第三方库，术语数据走缓存，几乎零额外开销。
@@ -63,7 +63,7 @@
 
 ## 🚀 安装
 
-1. **下载**：从 [Releases](https://github.com/Simon-xuan/Lite-Glossary/releases) 页面获取最新的 `Wordnest.zip`。
+1. **下载**：从 [Releases](https://github.com/Simon-xuan/Wordnest/releases) 页面获取最新的 `Wordnest.zip`。
 2. **上传**：登录 WordPress 后台 → **插件** → **添加新插件** → **上传插件**，选择 `Wordnest.zip`。
 3. **激活**：安装完成后点击 **激活插件**，左侧出现「词汇表」菜单，插件设置位于 **设置 → 轻量级词汇表**。
 
@@ -170,7 +170,7 @@ TV｜Television,电视
 
 这通常是因为站点里**装了两份本插件**——例如上传新版时旧副本没删干净，残留在 `wp-content/plugins/` 下的另一个文件夹里。两份代码函数同名，WordPress 启用时会触发 `Cannot redeclare function ...` 致命错误。
 
-**解决办法**：后台 → 插件，确认只保留**一份**「轻量级词汇表」；若不放心，用 FTP / 文件管理器检查 `wp-content/plugins/` 下是否有重复的插件文件夹（如 `wordnest` 与 `Lite-Glossary`、`wordnest-old` 等），删掉多余的再启用即可。
+**解决办法**：后台 → 插件，确认只保留**一份**「轻量级词汇表」；若不放心，用 FTP / 文件管理器检查 `wp-content/plugins/` 下是否有重复的插件文件夹（如 `wordnest` 与 `lite-glossary`、`wordnest-old` 等），删掉多余的再启用即可。
 </details>
 
 ---
@@ -192,7 +192,7 @@ TV｜Television,电视
 ## 📂 项目结构
 
 ```text
-Lite-Glossary/
+wordnest/
 ├── wordnest.php          # 插件入口：常量、资源加载、激活/停用钩子
 ├── includes/
 │   ├── post-type.php          # 注册「词汇表」自定义文章类型

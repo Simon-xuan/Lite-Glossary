@@ -21,7 +21,7 @@ msgstr ""
 
 #. Plugin URI of the plugin
 #: wordnest.php
-msgid "https://github.com/Simon-xuan/Lite-Glossary"
+msgid "https://github.com/Simon-xuan/Wordnest"
 msgstr ""
 
 #. Description of the plugin

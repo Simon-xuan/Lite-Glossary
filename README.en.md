@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📖 Lite-Glossary
+# 📖 Wordnest
 
 **A minimalist WordPress plugin that adds term tooltips to your post content**
 
@@ -10,7 +10,7 @@ Zero dependencies · First-class CJK support · Smart matching · High-performan
 
 <br>
 
-[![Version](https://img.shields.io/badge/version-1.0.0-2ea44f?style=for-the-badge)](https://github.com/Simon-xuan/Lite-Glossary/releases)
+[![Version](https://img.shields.io/badge/version-1.1.0-2ea44f?style=for-the-badge)](https://github.com/Simon-xuan/Wordnest/releases)
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-21759b?style=for-the-badge&logo=wordpress&logoColor=white)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.0%2B-777bb4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/)
 [![License](https://img.shields.io/badge/License-GPL--2.0%2B-blue?style=for-the-badge)](http://www.gnu.org/licenses/gpl-2.0.txt)
@@ -26,7 +26,7 @@ Zero dependencies · First-class CJK support · Smart matching · High-performan
 
 ---
 
-> **Lite-Glossary** is a minimalist tooltip plugin built for WordPress. Using a native stack (pure CSS + Vanilla JS) instead of bloated alternatives, it lets readers hover over a term in your content and instantly see its definition — fast, lightweight, dependency-free.
+> **Wordnest** is a minimalist tooltip plugin built for WordPress. Using a native stack (pure CSS + Vanilla JS) instead of bloated alternatives, it lets readers hover over a term in your content and instantly see its definition — fast, lightweight, dependency-free.
 
 <div align="center">
 
@@ -52,7 +52,7 @@ Zero dependencies · First-class CJK support · Smart matching · High-performan
 
 ---
 
-## 🤔 Why Lite-Glossary
+## 🤔 Why Wordnest
 
 - **Light** — just a few PHP files plus one CSS/JS file. Install and go.
 - **Fast** — no third-party libraries on the front end, terms are cached, near-zero overhead.
@@ -63,7 +63,7 @@ Zero dependencies · First-class CJK support · Smart matching · High-performan
 
 ## 🚀 Installation
 
-1. **Download** the latest `Wordnest.zip` from the [Releases](https://github.com/Simon-xuan/Lite-Glossary/releases) page.
+1. **Download** the latest `Wordnest.zip` from the [Releases](https://github.com/Simon-xuan/Wordnest/releases) page.
 2. **Upload** it in your WordPress dashboard → **Plugins** → **Add New Plugin** → **Upload Plugin**.
 3. **Activate** the plugin. A "Glossary" menu appears in the sidebar, and the plugin's own settings live under **Settings → Wordnest**.
 
@@ -170,7 +170,7 @@ No. The plugin parses content with `DOMDocument` and automatically skips `<a>` l
 
 This usually means **two copies of the plugin are installed** — e.g. an old copy left behind in another folder under `wp-content/plugins/` when you uploaded a new version. The two copies declare the same functions, so WordPress hits a `Cannot redeclare function ...` fatal error on activation.
 
-**Fix**: In Dashboard → Plugins, keep only **one** copy of "Wordnest". If unsure, use FTP / a file manager to check `wp-content/plugins/` for duplicate folders (e.g. `wordnest` alongside `Lite-Glossary` or `wordnest-old`), delete the extras, then activate.
+**Fix**: In Dashboard → Plugins, keep only **one** copy of "Wordnest". If unsure, use FTP / a file manager to check `wp-content/plugins/` for duplicate folders (e.g. `wordnest` alongside `lite-glossary` or `wordnest-old`), delete the extras, then activate.
 </details>
 
 ---
@@ -192,7 +192,7 @@ The plugin is fully internationalized, and **the interface language automaticall
 ## 📂 Project structure
 
 ```text
-Lite-Glossary/
+wordnest/
 ├── wordnest.php          # Entry point: constants, asset loading, activation/deactivation hooks
 ├── includes/
 │   ├── post-type.php          # Registers the "Glossary" custom post type
