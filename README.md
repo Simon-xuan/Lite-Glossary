@@ -14,7 +14,7 @@
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-21759b?style=for-the-badge&logo=wordpress&logoColor=white)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.0%2B-777bb4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/)
 [![License](https://img.shields.io/badge/License-GPL--2.0%2B-blue?style=for-the-badge)](http://www.gnu.org/licenses/gpl-2.0.txt)
-[![Dependencies](https://img.shields.io/badge/dependencies-none-success?style=for-the-badge)](#-为什么选择-lite-glossary)
+[![Dependencies](https://img.shields.io/badge/dependencies-none-success?style=for-the-badge)](#-为什么选择-wordnest)
 
 [功能特点](#-功能特点) ·
 [安装](#-安装) ·
@@ -63,9 +63,9 @@
 
 ## 🚀 安装
 
-1. **下载**：从 [Releases](https://github.com/Simon-xuan/Lite-Glossary/releases) 页面获取最新的 `LiteGlossary.zip`。
-2. **上传**：登录 WordPress 后台 → **插件** → **添加新插件** → **上传插件**，选择 `LiteGlossary.zip`。
-3. **激活**：安装完成后点击 **激活插件**，左侧菜单即出现「轻量级词汇表」与「词汇表」。
+1. **下载**：从 [Releases](https://github.com/Simon-xuan/Lite-Glossary/releases) 页面获取最新的 `Wordnest.zip`。
+2. **上传**：登录 WordPress 后台 → **插件** → **添加新插件** → **上传插件**，选择 `Wordnest.zip`。
+3. **激活**：安装完成后点击 **激活插件**，左侧出现「词汇表」菜单，插件设置位于 **设置 → 轻量级词汇表**。
 
 ---
 
@@ -92,7 +92,7 @@
 
 ### 2️⃣ 批量导入术语
 
-在 **轻量级词汇表 → 导入** 标签页粘贴 CSV 文本，每行一条，格式为 `术语[｜别名],释义`：
+在 **设置 → 轻量级词汇表 → 导入** 标签页粘贴 CSV 文本，每行一条，格式为 `术语[｜别名],释义`：
 
 ```text
 ABC｜张三,张三 - 一班
@@ -129,7 +129,7 @@ TV｜Television,电视
 工具提示的样式集中在 `assets/css/tooltip.css`，可直接修改气泡背景色、字号、圆角等：
 
 ```css
-.lite-glossary-tooltip {
+.wordnest-tooltip {
     background-color: #333;   /* 气泡背景色 */
     color: #fff;              /* 文字颜色 */
     border-radius: 4px;       /* 圆角 */
@@ -170,7 +170,7 @@ TV｜Television,电视
 
 这通常是因为站点里**装了两份本插件**——例如上传新版时旧副本没删干净，残留在 `wp-content/plugins/` 下的另一个文件夹里。两份代码函数同名，WordPress 启用时会触发 `Cannot redeclare function ...` 致命错误。
 
-**解决办法**：后台 → 插件，确认只保留**一份**「轻量级词汇表」；若不放心，用 FTP / 文件管理器检查 `wp-content/plugins/` 下是否有重复的插件文件夹（如 `lite-glossary` 与 `Lite-Glossary`、`lite-glossary-old` 等），删掉多余的再启用即可。
+**解决办法**：后台 → 插件，确认只保留**一份**「轻量级词汇表」；若不放心，用 FTP / 文件管理器检查 `wp-content/plugins/` 下是否有重复的插件文件夹（如 `wordnest` 与 `Lite-Glossary`、`wordnest-old` 等），删掉多余的再启用即可。
 </details>
 
 ---
@@ -182,10 +182,10 @@ TV｜Television,电视
 | 语言 | 状态 |
 | :--- | :--- |
 | 简体中文 | ✅ 默认内置 |
-| English | ✅ 已提供翻译(`languages/lite-glossary-en_US.mo`) |
+| English | ✅ 已提供翻译(`languages/wordnest-en_US.mo`) |
 
 - 站点语言为 **English** 时自动显示英文,为**简体中文**或其他时显示中文。
-- 想新增其他语言? 用 `languages/lite-glossary.pot` 作为模板,翻译后命名为 `lite-glossary-{locale}.po`(`{locale}` 替换为目标语言的 WordPress 语言代码),用 `msgfmt` 编译成 `.mo` 放进 `languages/` 即可。或者提交PR。
+- 想新增其他语言? 用 `languages/wordnest.pot` 作为模板,翻译后命名为 `wordnest-{locale}.po`(`{locale}` 替换为目标语言的 WordPress 语言代码),用 `msgfmt` 编译成 `.mo` 放进 `languages/` 即可。或者提交PR。
 
 ---
 
@@ -193,7 +193,7 @@ TV｜Television,电视
 
 ```text
 Lite-Glossary/
-├── lite-glossary.php          # 插件入口：常量、资源加载、激活/停用钩子
+├── wordnest.php          # 插件入口：常量、资源加载、激活/停用钩子
 ├── includes/
 │   ├── post-type.php          # 注册「词汇表」自定义文章类型
 │   ├── content-filter.php     # 正文术语匹配、工具提示注入、缓存
@@ -208,6 +208,33 @@ Lite-Glossary/
 ---
 
 ## 🛠 版本历史
+
+### v1.1.0
+
+更名为 **Wordnest**，并完成一轮安全与健壮性加固。
+
+**命名**
+- 插件正式更名为 Wordnest，文本域与 slug 均为 `wordnest`
+
+**安全**
+- 所有输出到 HTML 的翻译字符串统一转义（`esc_html_e` / `esc_html__` / `esc_attr_e` / `esc_js`），`wp_nonce_url()` 输出用 `esc_url()` 包裹
+- 每个含可执行代码的 PHP 文件均补 `if ( ! defined( 'ABSPATH' ) ) exit;` 防护
+- 「保存设置」与「CSV 导入」处理分支补加权限校验 `current_user_can( 'manage_options' )`
+
+**Bug 修复**
+- 修复前端内容丢失：正文中裸 `&`（如「AT&T」「R&D」）与命中术语处于同一文本节点时，整段文字可能被丢弃；术语高亮改为原生 DOM 节点构建，不再拼接 HTML 字符串 + `appendXML()`
+- 修复气泡释义被破坏：释义包含 `$0`、`${1}`、反斜杠时会被当作正则反向引用解析
+- CSV 导入现在能匹配草稿/待审/私密/定时状态的同名术语，重复导入是更新而非新建
+- 术语匹配现在跳过 `<pre>`、`<code>`、`<script>`、`<style>`（及 `kbd`/`samp`/`var`/`textarea`）区域，代码示例与嵌入内容不再被改写
+
+**健壮性**
+- 为 `mbstring` 函数（`mb_encode_numericentity` / `mb_strlen` / `mb_substr`）增加纯 PCRE 回退，未安装该扩展的主机不再致命错误
+
+**规范合规**
+- 后台 JS 改用 `wp_enqueue_script()` 加载，移除内联 `<script>`
+- 删除全局 `ob_start()`，表单/删除处理迁移到 `admin_init`，重定向无需依赖输出缓冲
+- 删除多余的 `load_plugin_textdomain()`（WordPress.org 自 WP 4.6 起自动加载翻译）
+- 设置页改为「设置」下的子菜单
 
 ### v1.0.2
 

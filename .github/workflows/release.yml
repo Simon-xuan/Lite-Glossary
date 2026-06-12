@@ -13,7 +13,7 @@ permissions:
   contents: write
 
 env:
-  DEFAULT_TAG: v1.0.2
+  DEFAULT_TAG: v1.1.0
 
 jobs:
   build:
@@ -33,9 +33,9 @@ jobs:
 
       - name: Build plugin zip
         run: |
-          # 打包成带顶层目录 lite-glossary/ 的标准 WordPress 安装包，
+          # 打包成带顶层目录 wordnest/ 的标准 WordPress 安装包，
           # 排除开发/文档/版本控制文件（尤其是体积较大的 docs/ 截图）。
-          mkdir -p build/lite-glossary
+          mkdir -p build/wordnest
           rsync -a \
             --exclude='.git' \
             --exclude='.github' \
@@ -45,76 +45,42 @@ jobs:
             --exclude='build' \
             --exclude='*.zip' \
             --exclude='*.md' \
-            ./ build/lite-glossary/
-          (cd build && zip -rq ../LiteGlossary.zip lite-glossary)
+            ./ build/wordnest/
+          (cd build && zip -rq ../Wordnest.zip wordnest)
           echo "打包内容："
-          unzip -l LiteGlossary.zip
+          unzip -l Wordnest.zip
+
+      # 更新日志单一来源：按 tag 号从 README 抽取对应版本的小节，
+      # 避免在 workflow 里硬编码某一版的内容（否则后续 tag 会贴出过时日志）。
+      - name: Generate release notes
+        run: |
+          VERSION="${{ steps.meta.outputs.tag }}"
+          VERSION="${VERSION#v}"
+          HEADER="### v${VERSION}"
+          extract() {
+            awk -v hdr="$HEADER" '$0==hdr{f=1;next} f&&/^### v/{exit} f{print}' "$1"
+          }
+          EN="$(extract README.en.md)"
+          ZH="$(extract README.md)"
+          {
+            if [ -n "${EN}${ZH}" ]; then
+              printf '## English\n\n'
+              printf '%s\n' "${EN:-_See readme.txt for the full changelog._}"
+              printf '\n## Chinese\n\n'
+              printf '%s\n' "${ZH:-_完整更新日志见 readme.txt。_}"
+            else
+              printf 'Wordnest %s — see readme.txt for the changelog.\n' "$VERSION"
+            fi
+          } > RELEASE_NOTES.md
+          echo "----- generated RELEASE_NOTES.md -----"
+          cat RELEASE_NOTES.md
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.meta.outputs.tag }}
-          name: Lite Glossary ${{ steps.meta.outputs.tag }}
-          body: |
-            **🔒 Security hardening**
-
-            * Tooltips are now rendered with DOM text nodes instead of `innerHTML` — removes the DOM XSS sink flagged by code scanning (`js/xss-through-dom`)
-            * All user input is now unslashed (`wp_unslash`) and sanitized (`sanitize_text_field` / `sanitize_textarea_field`) before use
-            * Nonces are sanitized before verification, with proper `isset` guards
-            * Added an explicit capability check (`current_user_can('delete_posts')`) to single-term deletion
-            * CSV import sanitizes each field, stripping any HTML/script on the way in
-
-            **🐛 Bug fixes**
-
-            * The "Only highlight the first occurrence" setting was never saved — it now persists correctly
-
-            **⚡ Performance**
-
-            * Removed leftover migration code that cleared the term cache on every request — Transient caching now actually takes effect
-
-            **🏷️ Naming**
-
-            * The name shown in the Plugins list is now "Lite Glossary"
-
-            **✅ Compliance**
-
-            * Added a `sanitize_callback` to `register_setting`, and the production zip excludes extra Markdown files — passes the WordPress.org Plugin Check
-
-            **📦 Packaging**
-
-            * The release zip now ships a proper top-level `lite-glossary/` folder and excludes development assets (screenshots, Markdown, etc.)
-
-            **🚀 Installation**
-
-            1. Download `LiteGlossary.zip` from the Assets section below
-            2. Go to **Plugins → Add New Plugin → Upload Plugin**, select the zip, and install
-            3. Click **Activate Plugin**
-
-            ### 🔒 安全加固
-            - 所有用户输入统一 `wp_unslash` + `sanitize_text_field` / `sanitize_textarea_field` 后再使用
-            - nonce 校验前先净化，并补 `isset` 判断
-            - 单条删除新增权限检查 `current_user_can('delete_posts')`
-            - CSV 导入逐字段净化，恶意 HTML/脚本入库即被剥离
-
-            ### 🐛 问题修复
-            - 「仅高亮内容中首次出现的术语」设置此前从不保存，现已正确持久化
-
-            ### ⚡ 性能
-            - 移除每次请求都清空术语缓存的遗留迁移代码，Transient 缓存现已真正生效
-
-            ### 🏷️ 命名
-            - 插件列表显示名改为英文「Lite Glossary」
-
-            ### ✅ 合规
-            - `register_setting` 增加 `sanitize_callback`，生产包排除多余 Markdown 文件 —— 通过 WordPress.org 插件检查
-
-            ### 📦 打包改进
-            - 发布 zip 现采用标准顶层目录 `lite-glossary/`，并排除文档/截图/Markdown 等开发资源
-
-            ### 🚀 安装使用
-            1. 在下方 Assets 栏目下载 `LiteGlossary.zip`
-            2. 进入 **插件 → 添加新插件 → 上传插件**，选择 zip 并安装
-            3. 点击 **激活插件**
-          files: LiteGlossary.zip
+          name: Wordnest ${{ steps.meta.outputs.tag }}
+          body_path: RELEASE_NOTES.md
+          files: Wordnest.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -57,7 +57,7 @@ function adjustTooltipHeight(tooltip, content) {
 
 document.addEventListener('DOMContentLoaded', function() {
     // 获取所有词汇表术语
-    var glossaryTerms = document.querySelectorAll('.lite-glossary-term');
+    var glossaryTerms = document.querySelectorAll('.wordnest-term');
     
     // 处理每个术语
     glossaryTerms.forEach(function(term) {
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (tooltipContent) {
             // 创建工具提示元素
             var tooltip = document.createElement('span');
-            tooltip.className = 'lite-glossary-tooltip';
+            tooltip.className = 'wordnest-tooltip';
             
             // 用文本节点 + <br> 元素构建内容，避免 innerHTML 带来的 XSS 风险
             var lines = formatTextLines(tooltipContent);

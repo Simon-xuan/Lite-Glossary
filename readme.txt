@@ -1,10 +1,10 @@
-=== Lite Glossary ===
+=== Wordnest ===
 Contributors: Simonxuan
 Tags: glossary, tooltip, terms, dictionary, definitions
 Requires at least: 5.0
 Tested up to: 7.0
 Requires PHP: 7.0
-Stable tag: 1.0.2
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ A lightweight WordPress glossary plugin that shows a tooltip definition when rea
 
 == Description ==
 
-**Lite Glossary** is a minimalist tooltip plugin for WordPress. Instead of bloated alternatives, it uses a native stack (pure CSS + Vanilla JavaScript) so readers can hover over a term in your content and instantly see its definition — fast, lightweight, and dependency-free.
+**Wordnest** is a minimalist tooltip plugin for WordPress. Instead of bloated alternatives, it uses a native stack (pure CSS + Vanilla JavaScript) so readers can hover over a term in your content and instantly see its definition — fast, lightweight, and dependency-free.
 
 **Features**
 
@@ -29,9 +29,9 @@ The plugin parses content with `DOMDocument` and only touches plain text nodes, 
 
 == Installation ==
 
-1. Upload the plugin files to the `/wp-content/plugins/lite-glossary` directory, or install the plugin through the **Plugins** screen in WordPress.
+1. Upload the plugin files to the `/wp-content/plugins/wordnest` directory, or install the plugin through the **Plugins** screen in WordPress.
 2. Activate the plugin through the **Plugins** screen.
-3. Go to **Glossary → Add New Glossary Term** to add terms, or use **Lite Glossary → Import** to bulk-import from CSV.
+3. Go to **Glossary → Add New Glossary Term** to add terms, or use **Settings → Wordnest → Import** to bulk-import from CSV.
 
 == Frequently Asked Questions ==
 
@@ -68,6 +68,32 @@ This usually means two copies of the plugin are installed (for example an old co
 
 == Changelog ==
 
+= 1.1.0 =
+Renamed to **Wordnest**, plus a security/robustness pass.
+
+Naming:
+* Renamed the plugin to Wordnest; the text domain and slug are now `wordnest`.
+
+Security:
+* Every translated string echoed into HTML is now escaped (`esc_html_e` / `esc_html__` / `esc_attr_e` / `esc_js`), and `wp_nonce_url()` output is wrapped in `esc_url()`.
+* Added an `if ( ! defined( 'ABSPATH' ) ) exit;` guard to every executable PHP file.
+* Added explicit capability checks (`current_user_can( 'manage_options' )`) to the settings-save and CSV-import handlers.
+
+Bug fixes:
+* Fixed content loss on the front end: a paragraph containing a raw ampersand (e.g. "AT&T", "R&D") alongside a matched term could be dropped entirely. Term highlighting is now built with native DOM nodes instead of string concatenation + `appendXML()`.
+* Fixed tooltip corruption when a term definition contained `$0`, `${1}`, or a backslash (these were interpreted as regex back-references).
+* CSV import now matches existing draft/pending/private/scheduled terms, so re-importing a term updates it instead of creating a duplicate.
+* Term matching now skips `<pre>`, `<code>`, `<script>`, `<style>` (and `kbd`/`samp`/`var`/`textarea`) regions, so code samples and embedded content are no longer altered.
+
+Robustness:
+* Added pure-PCRE fallbacks for the `mbstring` functions (`mb_encode_numericentity` / `mb_strlen` / `mb_substr`), so the plugin no longer fatals on hosts without the mbstring extension.
+
+Standards / compliance:
+* Admin JavaScript now loads via `wp_enqueue_script()` on the settings page instead of inline `<script>` tags.
+* Removed the global `ob_start()`; admin form/delete handling moved to `admin_init` so redirects work without output buffering.
+* Removed the redundant `load_plugin_textdomain()` call (WordPress.org loads translations automatically since WP 4.6).
+* The settings page is now a submenu under **Settings** instead of a high-priority top-level menu.
+
 = 1.0.2 =
 * Security: the tooltip is now built with DOM text nodes instead of innerHTML, removing the XSS sink flagged by code scanning (js/xss-through-dom).
 
@@ -82,6 +108,9 @@ This usually means two copies of the plugin are installed (for example an old co
 * Initial release: core term-matching engine, CSV bulk import with Transient caching, Vanilla JS tooltips with zero front-end dependencies.
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Renamed to Wordnest, with output-escaping and security hardening throughout, proper script enqueuing, and a tidier Settings submenu. Recommended for all users.
 
 = 1.0.2 =
 Security fix: removes a DOM XSS sink in the tooltip script (flagged by code scanning). Recommended for all users.

@@ -1,4 +1,4 @@
-.lite-glossary-term {
+.wordnest-term {
     position: relative;
     cursor: help;
     border-bottom: 1px dashed #999;
@@ -6,12 +6,12 @@
     text-decoration: none;
 }
 
-.lite-glossary-term:hover {
+.wordnest-term:hover {
     color: #0066cc;
     text-decoration: none;
 }
 
-.lite-glossary-tooltip {
+.wordnest-tooltip {
     position: absolute;
     bottom: 100%;
     left: 50%;
@@ -33,7 +33,7 @@
     word-wrap: break-word;
 }
 
-.lite-glossary-tooltip::after {
+.wordnest-tooltip::after {
     content: '';
     position: absolute;
     top: 100%;
@@ -44,14 +44,14 @@
     border-color: #333 transparent transparent transparent;
 }
 
-.lite-glossary-term:hover .lite-glossary-tooltip {
+.wordnest-term:hover .wordnest-tooltip {
     opacity: 1;
     visibility: visible;
 }
 
 /* 响应式调整 */
 @media (max-width: 768px) {
-    .lite-glossary-tooltip {
+    .wordnest-tooltip {
         font-size: 13px;
         padding: 8px 10px;
     }

@@ -14,7 +14,7 @@ Zero dependencies · First-class CJK support · Smart matching · High-performan
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-21759b?style=for-the-badge&logo=wordpress&logoColor=white)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.0%2B-777bb4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/)
 [![License](https://img.shields.io/badge/License-GPL--2.0%2B-blue?style=for-the-badge)](http://www.gnu.org/licenses/gpl-2.0.txt)
-[![Dependencies](https://img.shields.io/badge/dependencies-none-success?style=for-the-badge)](#-why-lite-glossary)
+[![Dependencies](https://img.shields.io/badge/dependencies-none-success?style=for-the-badge)](#-why-wordnest)
 
 [Features](#-features) ·
 [Install](#-installation) ·
@@ -63,9 +63,9 @@ Zero dependencies · First-class CJK support · Smart matching · High-performan
 
 ## 🚀 Installation
 
-1. **Download** the latest `LiteGlossary.zip` from the [Releases](https://github.com/Simon-xuan/Lite-Glossary/releases) page.
+1. **Download** the latest `Wordnest.zip` from the [Releases](https://github.com/Simon-xuan/Lite-Glossary/releases) page.
 2. **Upload** it in your WordPress dashboard → **Plugins** → **Add New Plugin** → **Upload Plugin**.
-3. **Activate** the plugin. Two menu items — "Lite Glossary" and "Glossary" — will appear in the sidebar.
+3. **Activate** the plugin. A "Glossary" menu appears in the sidebar, and the plugin's own settings live under **Settings → Wordnest**.
 
 ---
 
@@ -92,7 +92,7 @@ Go to **Glossary → Add New Glossary Term**:
 
 ### 2️⃣ Bulk import terms
 
-On the **Lite Glossary → Import** tab, paste CSV text — one term per line, in the format `Term[｜Alias],Definition`:
+On the **Settings → Wordnest → Import** tab, paste CSV text — one term per line, in the format `Term[｜Alias],Definition`:
 
 ```text
 ABC｜John,John - Class 1
@@ -129,7 +129,7 @@ TV｜Television,A television set
 The tooltip styles live in `assets/css/tooltip.css`. Edit the bubble's background color, font size, corner radius, etc. directly:
 
 ```css
-.lite-glossary-tooltip {
+.wordnest-tooltip {
     background-color: #333;   /* bubble background */
     color: #fff;              /* text color */
     border-radius: 4px;       /* corner radius */
@@ -170,7 +170,7 @@ No. The plugin parses content with `DOMDocument` and automatically skips `<a>` l
 
 This usually means **two copies of the plugin are installed** — e.g. an old copy left behind in another folder under `wp-content/plugins/` when you uploaded a new version. The two copies declare the same functions, so WordPress hits a `Cannot redeclare function ...` fatal error on activation.
 
-**Fix**: In Dashboard → Plugins, keep only **one** copy of "Lite Glossary". If unsure, use FTP / a file manager to check `wp-content/plugins/` for duplicate folders (e.g. `lite-glossary` alongside `Lite-Glossary` or `lite-glossary-old`), delete the extras, then activate.
+**Fix**: In Dashboard → Plugins, keep only **one** copy of "Wordnest". If unsure, use FTP / a file manager to check `wp-content/plugins/` for duplicate folders (e.g. `wordnest` alongside `Lite-Glossary` or `wordnest-old`), delete the extras, then activate.
 </details>
 
 ---
@@ -182,10 +182,10 @@ The plugin is fully internationalized, and **the interface language automaticall
 | Language | Status |
 | :--- | :--- |
 | Simplified Chinese | ✅ Built-in default |
-| English | ✅ Translation provided (`languages/lite-glossary-en_US.mo`) |
+| English | ✅ Translation provided (`languages/wordnest-en_US.mo`) |
 
 - When the site language is **English**, the UI shows English; for **Simplified Chinese** or anything else, it shows Chinese.
-- Want to add another language? Use `languages/lite-glossary.pot` as the template, save your translation as `lite-glossary-{locale}.po` (replace `{locale}` with the target language's WordPress locale code), compile it to `.mo` with `msgfmt`, drop it into `languages/` — or submit a PR.
+- Want to add another language? Use `languages/wordnest.pot` as the template, save your translation as `wordnest-{locale}.po` (replace `{locale}` with the target language's WordPress locale code), compile it to `.mo` with `msgfmt`, drop it into `languages/` — or submit a PR.
 
 ---
 
@@ -193,7 +193,7 @@ The plugin is fully internationalized, and **the interface language automaticall
 
 ```text
 Lite-Glossary/
-├── lite-glossary.php          # Entry point: constants, asset loading, activation/deactivation hooks
+├── wordnest.php          # Entry point: constants, asset loading, activation/deactivation hooks
 ├── includes/
 │   ├── post-type.php          # Registers the "Glossary" custom post type
 │   ├── content-filter.php     # Term matching, tooltip injection, caching
@@ -208,6 +208,33 @@ Lite-Glossary/
 ---
 
 ## 🛠 Changelog
+
+### v1.1.0
+
+Renamed to **Wordnest**, plus a security and robustness pass.
+
+**Naming**
+- The plugin is now Wordnest; the text domain and slug are both `wordnest`
+
+**Security**
+- Every translated string echoed into HTML is now escaped (`esc_html_e` / `esc_html__` / `esc_attr_e` / `esc_js`), and `wp_nonce_url()` output is wrapped in `esc_url()`
+- Added an `if ( ! defined( 'ABSPATH' ) ) exit;` guard to every executable PHP file
+- Added explicit capability checks (`current_user_can( 'manage_options' )`) to the settings-save and CSV-import handlers
+
+**Bug fixes**
+- Fixed front-end content loss: a paragraph with a raw ampersand (e.g. "AT&T", "R&D") next to a matched term could be dropped entirely; term highlighting is now built with native DOM nodes instead of string concatenation + `appendXML()`
+- Fixed tooltip corruption when a definition contained `$0`, `${1}`, or a backslash (interpreted as regex back-references)
+- CSV import now matches existing draft/pending/private/scheduled terms, so re-importing a term updates it instead of creating a duplicate
+- Term matching now skips `<pre>`, `<code>`, `<script>`, `<style>` (and `kbd`/`samp`/`var`/`textarea`) regions, so code samples and embedded content are left untouched
+
+**Robustness**
+- Added pure-PCRE fallbacks for the `mbstring` functions (`mb_encode_numericentity` / `mb_strlen` / `mb_substr`), so the plugin no longer fatals on hosts without the mbstring extension
+
+**Standards / compliance**
+- Admin JavaScript now loads via `wp_enqueue_script()` instead of inline `<script>`
+- Removed the global `ob_start()` and moved form/delete handling to `admin_init`
+- Removed the redundant `load_plugin_textdomain()` (WordPress.org loads translations automatically since WP 4.6)
+- The settings page is now a submenu under **Settings**
 
 ### v1.0.2
 

@@ -1,9 +1,9 @@
-# English translation for Lite Glossary.
+# English translation for Wordnest.
 # Copyright (C) 2026 Simonxuan
-# This file is distributed under the same license as the Lite Glossary package.
+# This file is distributed under the same license as the Wordnest package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Lite Glossary 1.0.0\n"
+"Project-Id-Version: Wordnest 1.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/Simon-xuan/Lite-Glossary/issues\n"
 "PO-Revision-Date: 2026-06-09 20:40+0800\n"
 "Last-Translator: Simonxuan\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "轻量级词汇表"
-msgstr "Lite Glossary"
+msgstr "Wordnest"
 
 msgid "安全验证失败"
 msgstr "Security check failed"
@@ -34,7 +34,7 @@ msgid "请选择要删除的术语。"
 msgstr "Please select terms to delete."
 
 msgid "轻量级词汇表设置"
-msgstr "Lite Glossary Settings"
+msgstr "Wordnest Settings"
 
 msgid "设置"
 msgstr "Settings"
