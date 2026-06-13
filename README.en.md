@@ -26,7 +26,7 @@ Zero dependencies · First-class CJK support · Smart matching · High-performan
 
 ---
 
-> **Wordnest** is a minimalist tooltip plugin built for WordPress. Using a native stack (pure CSS + Vanilla JS) instead of bloated alternatives, it lets readers hover over a term in your content and instantly see its definition — fast, lightweight, dependency-free.
+> **Wordnest** is a minimalist tooltip plugin built for WordPress. Using a native stack (pure CSS + Vanilla JS) instead of bloated alternatives, it lets readers hover over a term in your content and instantly see its definition — fast, lightweight, dependency-free.Formerly known as Lite-Glossary.
 
 <div align="center">
 
