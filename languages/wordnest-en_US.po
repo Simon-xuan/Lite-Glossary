@@ -103,8 +103,8 @@ msgid "还没有添加任何词汇表术语。"
 msgstr "No glossary terms have been added yet."
 
 #, php-format
-msgid "导入完成：%d 个新术语，%d 个更新术语"
-msgstr "Import complete: %d new term(s), %d updated term(s)"
+msgid "导入完成：%1$d 个新术语，%2$d 个更新术语"
+msgstr "Import complete: %1$d new term(s), %2$d updated term(s)"
 
 msgctxt "Post Type General Name"
 msgid "词汇表"

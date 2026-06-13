@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-12T10:49:28+00:00\n"
+"POT-Creation-Date: 2026-06-13T01:02:14+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: wordnest\n"
@@ -40,7 +40,7 @@ msgid "https://github.com/Simon-xuan"
 msgstr ""
 
 #: includes/admin-page.php:14
-#: includes/admin-page.php:153
+#: includes/admin-page.php:158
 msgid "轻量级词汇表设置"
 msgstr ""
 
@@ -58,111 +58,113 @@ msgstr ""
 msgid "安全验证失败"
 msgstr ""
 
-#: includes/admin-page.php:145
+#. translators: %d: number of glossary terms deleted
+#: includes/admin-page.php:150
 #, php-format
 msgid "成功删除 %d 个术语。"
 msgstr ""
 
-#: includes/admin-page.php:147
+#: includes/admin-page.php:152
 msgid "术语已成功删除。"
 msgstr ""
 
-#: includes/admin-page.php:149
+#: includes/admin-page.php:154
 msgid "请选择要删除的术语。"
 msgstr ""
 
-#: includes/admin-page.php:156
+#: includes/admin-page.php:161
 msgid "设置"
 msgstr ""
 
-#: includes/admin-page.php:157
+#: includes/admin-page.php:162
 msgid "导入"
 msgstr ""
 
-#: includes/admin-page.php:158
-#: includes/admin-page.php:209
+#: includes/admin-page.php:163
+#: includes/admin-page.php:214
 msgid "术语管理"
 msgstr ""
 
-#: includes/admin-page.php:168
+#: includes/admin-page.php:173
 msgid "高亮选项"
 msgstr ""
 
-#: includes/admin-page.php:173
+#: includes/admin-page.php:178
 msgid "仅高亮内容中首次出现的术语"
 msgstr ""
 
-#: includes/admin-page.php:180
+#: includes/admin-page.php:185
 msgid "保存设置"
 msgstr ""
 
-#: includes/admin-page.php:185
+#: includes/admin-page.php:190
 msgid "导入词汇表术语"
 msgstr ""
 
-#: includes/admin-page.php:186
+#: includes/admin-page.php:191
 msgid "在下方粘贴 CSV 文本（格式：术语1｜术语2,解释）。已存在的术语将被更新。"
 msgstr ""
 
-#: includes/admin-page.php:194
+#: includes/admin-page.php:199
 msgid "CSV 文本"
 msgstr ""
 
-#: includes/admin-page.php:198
+#: includes/admin-page.php:203
 msgid "示例：ABC｜张三,张三 - 一班\\nDEF｜李四,李四 - 二班"
 msgstr ""
 
-#: includes/admin-page.php:204
+#: includes/admin-page.php:209
 msgid "导入术语"
 msgstr ""
 
-#: includes/admin-page.php:210
+#: includes/admin-page.php:215
 msgid "以下是所有已添加的词汇表术语，您可以编辑或删除它们。"
 msgstr ""
 
-#: includes/admin-page.php:214
+#: includes/admin-page.php:219
 msgid "新增术语"
 msgstr ""
 
-#: includes/admin-page.php:237
+#: includes/admin-page.php:242
 msgid "批量删除"
 msgstr ""
 
-#: includes/admin-page.php:237
+#: includes/admin-page.php:242
 msgid "确定要删除选中的术语吗？"
 msgstr ""
 
-#: includes/admin-page.php:247
+#: includes/admin-page.php:252
 msgid "术语"
 msgstr ""
 
-#: includes/admin-page.php:248
+#: includes/admin-page.php:253
 msgid "解释"
 msgstr ""
 
-#: includes/admin-page.php:249
+#: includes/admin-page.php:254
 msgid "操作"
 msgstr ""
 
-#: includes/admin-page.php:272
+#: includes/admin-page.php:277
 msgid "编辑"
 msgstr ""
 
-#: includes/admin-page.php:273
+#: includes/admin-page.php:278
 msgid "确定要删除这个术语吗？"
 msgstr ""
 
-#: includes/admin-page.php:273
+#: includes/admin-page.php:278
 msgid "删除"
 msgstr ""
 
-#: includes/admin-page.php:287
+#: includes/admin-page.php:292
 msgid "还没有添加任何词汇表术语。"
 msgstr ""
 
-#: includes/admin-page.php:375
+#. translators: 1: number of new terms imported, 2: number of existing terms updated
+#: includes/admin-page.php:381
 #, php-format
-msgid "导入完成：%d 个新术语，%d 个更新术语"
+msgid "导入完成：%1$d 个新术语，%2$d 个更新术语"
 msgstr ""
 
 #: includes/post-type.php:12

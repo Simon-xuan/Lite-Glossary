@@ -146,6 +146,7 @@ add_action( 'admin_init', 'wordnest_handle_admin_actions' );
 function wordnest_admin_page() {
     // 显示操作反馈提示（实际处理在 wordnest_handle_admin_actions 中完成）
     if ( isset( $_GET['bulk_deleted'] ) && intval( $_GET['bulk_deleted'] ) > 0 ) {
+        /* translators: %d: number of glossary terms deleted */
         echo '<div class="notice notice-success is-dismissible"><p>' . esc_html( sprintf( __( '成功删除 %d 个术语。', 'wordnest' ), intval( $_GET['bulk_deleted'] ) ) ) . '</p></div>';
     } elseif ( isset( $_GET['single_deleted'] ) ) {
         echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( '术语已成功删除。', 'wordnest' ) . '</p></div>';
@@ -376,7 +377,8 @@ function wordnest_handle_csv_import() {
     // 显示通知
     if ( $imported > 0 || $updated > 0 ) {
         $message = sprintf(
-            __( '导入完成：%d 个新术语，%d 个更新术语', 'wordnest' ),
+            /* translators: 1: number of new terms imported, 2: number of existing terms updated */
+            __( '导入完成：%1$d 个新术语，%2$d 个更新术语', 'wordnest' ),
             $imported,
             $updated
         );
