@@ -209,6 +209,10 @@ wordnest/
 
 ## 🛠 Changelog
 
+### v1.1.1
+
+- Compliance: added nonce verification to the post-redirect admin notice flags, and moved the CSV-import nonce check into the import handler's own scope — clears the WordPress.org Plugin Check NonceVerification warnings. No functional changes.
+
 ### v1.1.0
 
 Renamed to **Wordnest**, plus a security and robustness pass.

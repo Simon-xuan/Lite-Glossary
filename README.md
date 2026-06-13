@@ -209,6 +209,10 @@ wordnest/
 
 ## 🛠 版本历史
 
+### v1.1.1
+
+- 合规：后台提示标志（重定向后显示）补加 nonce 校验；CSV 导入的 nonce 校验移入导入函数自身作用域——消除 WordPress.org Plugin Check 的 NonceVerification 警告。无功能变化。
+
 ### v1.1.0
 
 更名为 **Wordnest**，并完成一轮安全与健壮性加固。

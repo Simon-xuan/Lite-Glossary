@@ -66,6 +66,7 @@ function wordnest_handle_admin_actions() {
                 wp_safe_redirect( add_query_arg( array(
                     'page'           => 'wordnest',
                     'single_deleted' => 1,
+                    '_wpnonce'       => wp_create_nonce( 'wordnest_notice' ),
                 ), admin_url( 'options-general.php' ) ) );
                 exit;
             }
@@ -105,6 +106,7 @@ function wordnest_handle_admin_actions() {
             wp_safe_redirect( add_query_arg( array(
                 'page'         => 'wordnest',
                 'bulk_deleted' => $deleted,
+                '_wpnonce'     => wp_create_nonce( 'wordnest_notice' ),
             ), admin_url( 'options-general.php' ) ) );
             exit;
         } else {
@@ -112,18 +114,15 @@ function wordnest_handle_admin_actions() {
             wp_safe_redirect( add_query_arg( array(
                 'page'              => 'wordnest',
                 'no_terms_selected' => 1,
+                '_wpnonce'          => wp_create_nonce( 'wordnest_notice' ),
             ), admin_url( 'options-general.php' ) ) );
             exit;
         }
     }
 
-    // 处理 CSV 导入
-    if ( isset( $_POST['wordnest_import'], $_POST['wordnest_csv'] ) ) {
-        if ( current_user_can( 'manage_options' )
-            && isset( $_POST['wordnest_nonce'] )
-            && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wordnest_nonce'] ) ), 'wordnest_import' ) ) {
-            wordnest_handle_csv_import();
-        }
+    // 处理 CSV 导入（nonce 校验放在 wordnest_handle_csv_import 内，与 $_POST 读取同作用域）
+    if ( isset( $_POST['wordnest_import'], $_POST['wordnest_csv'] ) && current_user_can( 'manage_options' ) ) {
+        wordnest_handle_csv_import();
     }
 
     // 保存设置并清除缓存
@@ -144,14 +143,19 @@ add_action( 'admin_init', 'wordnest_handle_admin_actions' );
  * 管理页面回调函数
  */
 function wordnest_admin_page() {
-    // 显示操作反馈提示（实际处理在 wordnest_handle_admin_actions 中完成）
-    if ( isset( $_GET['bulk_deleted'] ) && intval( $_GET['bulk_deleted'] ) > 0 ) {
-        /* translators: %d: number of glossary terms deleted */
-        echo '<div class="notice notice-success is-dismissible"><p>' . esc_html( sprintf( __( '成功删除 %d 个术语。', 'wordnest' ), intval( $_GET['bulk_deleted'] ) ) ) . '</p></div>';
-    } elseif ( isset( $_GET['single_deleted'] ) ) {
-        echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( '术语已成功删除。', 'wordnest' ) . '</p></div>';
-    } elseif ( isset( $_GET['no_terms_selected'] ) ) {
-        echo '<div class="notice notice-error is-dismissible"><p>' . esc_html__( '请选择要删除的术语。', 'wordnest' ) . '</p></div>';
+    // 显示操作反馈提示（实际处理在 wordnest_handle_admin_actions 中完成）。
+    // 这些 GET 标志由本插件重定向时附带的 nonce 保护，校验通过后才读取/显示，
+    // 既满足 nonce 规范，也防止他人伪造「已删除 N 条」之类的提示。
+    $wordnest_notice_nonce = isset( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
+    if ( $wordnest_notice_nonce && wp_verify_nonce( $wordnest_notice_nonce, 'wordnest_notice' ) ) {
+        if ( isset( $_GET['bulk_deleted'] ) && intval( $_GET['bulk_deleted'] ) > 0 ) {
+            /* translators: %d: number of glossary terms deleted */
+            echo '<div class="notice notice-success is-dismissible"><p>' . esc_html( sprintf( __( '成功删除 %d 个术语。', 'wordnest' ), intval( $_GET['bulk_deleted'] ) ) ) . '</p></div>';
+        } elseif ( isset( $_GET['single_deleted'] ) ) {
+            echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( '术语已成功删除。', 'wordnest' ) . '</p></div>';
+        } elseif ( isset( $_GET['no_terms_selected'] ) ) {
+            echo '<div class="notice notice-error is-dismissible"><p>' . esc_html__( '请选择要删除的术语。', 'wordnest' ) . '</p></div>';
+        }
     }
     ?>
     <div class="wrap">
@@ -303,6 +307,9 @@ function wordnest_admin_page() {
  * 处理 CSV 导入
  */
 function wordnest_handle_csv_import() {
+    // 校验 nonce（与下方 $_POST 读取处于同一函数作用域，满足 nonce 规范）。
+    check_admin_referer( 'wordnest_import', 'wordnest_nonce' );
+
     if ( ! isset( $_POST['wordnest_csv'] ) ) {
         return;
     }

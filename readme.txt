@@ -4,7 +4,7 @@ Tags: glossary, tooltip, terms, dictionary, definitions
 Requires at least: 5.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -68,6 +68,9 @@ This usually means two copies of the plugin are installed (for example an old co
 
 == Changelog ==
 
+= 1.1.1 =
+* Compliance: added nonce verification to the post-redirect admin notice flags, and moved the CSV-import nonce check into the import handler's own scope — clears the WordPress.org Plugin Check NonceVerification warnings.
+
 = 1.1.0 =
 Renamed to **Wordnest**, plus a security/robustness pass.
 
@@ -108,6 +111,9 @@ Standards / compliance:
 * Initial release: core term-matching engine, CSV bulk import with Transient caching, Vanilla JS tooltips with zero front-end dependencies.
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+Adds nonce verification to satisfy the WordPress.org Plugin Check. No functional changes.
 
 = 1.1.0 =
 Renamed to Wordnest, with output-escaping and security hardening throughout, proper script enqueuing, and a tidier Settings submenu. Recommended for all users.
